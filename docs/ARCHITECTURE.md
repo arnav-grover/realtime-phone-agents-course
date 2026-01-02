@@ -29,45 +29,45 @@ This is a **production-grade real-time voice agent call center** system that use
 
 ```mermaid
 graph TB
-    subgraph "External Systems"
+    subgraph External["External Systems"]
         Phone[Phone Network]
         Twilio[Twilio Service]
     end
 
-    subgraph "API Layer"
+    subgraph API["API Layer"]
         FastAPI[FastAPI Application]
-        Health[/health endpoint]
-        Voice[/voice endpoints]
-        Search[/superlinked endpoints]
-        Call[/call endpoint]
+        Health[Health endpoint]
+        Voice[Voice endpoints]
+        Search[Superlinked endpoints]
+        Call[Call endpoint]
     end
 
-    subgraph "Agent Layer"
-        VoiceStream[VoiceAgentStream<br/>Twilio Adapter]
-        FastRTCAgent[FastRTCAgent<br/>Orchestrator]
+    subgraph Agent["Agent Layer"]
+        VoiceStream["VoiceAgentStream<br/>Twilio Adapter"]
+        FastRTCAgent["FastRTCAgent<br/>Orchestrator"]
     end
 
-    subgraph "Domain Layer"
+    subgraph Domain["Domain Layer"]
         Avatar[Avatar System]
         Registry[AvatarRegistry]
-        Personas[8 Personas<br/>dan, jess, leah, etc.]
+        Personas["8 Personas<br/>dan, jess, leah, etc."]
     end
 
-    subgraph "Service Layer"
-        STT[STT Models<br/>Strategy Pattern]
-        TTS[TTS Models<br/>Strategy Pattern]
+    subgraph Service["Service Layer"]
+        STT["STT Models<br/>Strategy Pattern"]
+        TTS["TTS Models<br/>Strategy Pattern"]
         LangChain[LangChain Agent]
         Tools[Property Search Tool]
         Effects[Sound Effects]
     end
 
-    subgraph "Infrastructure Layer"
+    subgraph Infrastructure["Infrastructure Layer"]
         PropertyService[PropertySearchService]
         Superlinked[Superlinked Index]
         Qdrant[Qdrant Vector DB]
     end
 
-    subgraph "Observability Layer"
+    subgraph Observability["Observability Layer"]
         Opik[Opik Tracing]
         PromptVersioning[Prompt Versioning]
     end
@@ -114,49 +114,49 @@ This diagram shows the **Separation of Concerns** across different architectural
 
 ```mermaid
 graph TB
-    subgraph "Layer 1: Presentation / API Layer"
-        L1A[FastAPI Application<br/>main.py]
-        L1B[Route Handlers<br/>voice.py, superlinked.py, health.py]
-        L1C[Pydantic Models<br/>Request/Response DTOs]
+    subgraph Layer1["Layer 1: Presentation / API Layer"]
+        L1A["FastAPI Application<br/>main.py"]
+        L1B["Route Handlers<br/>voice.py, superlinked.py, health.py"]
+        L1C["Pydantic Models<br/>Request/Response DTOs"]
         L1D[CORS Middleware]
     end
 
-    subgraph "Layer 2: Application / Agent Layer"
-        L2A[FastRTCAgent<br/>Main Orchestrator]
-        L2B[VoiceAgentStream<br/>Twilio Integration]
-        L2C[Agent Processing Pipeline<br/>transcribe → process → synthesize]
+    subgraph Layer2["Layer 2: Application / Agent Layer"]
+        L2A["FastRTCAgent<br/>Main Orchestrator"]
+        L2B["VoiceAgentStream<br/>Twilio Integration"]
+        L2C["Agent Processing Pipeline<br/>transcribe to process to synthesize"]
     end
 
-    subgraph "Layer 3: Domain Layer"
-        L3A[Avatar Domain Model<br/>Persona definitions]
-        L3B[AvatarRegistry<br/>Domain service]
-        L3C[YAML Configurations<br/>8 avatar definitions]
+    subgraph Layer3["Layer 3: Domain Layer"]
+        L3A["Avatar Domain Model<br/>Persona definitions"]
+        L3B["AvatarRegistry<br/>Domain service"]
+        L3C["YAML Configurations<br/>8 avatar definitions"]
     end
 
-    subgraph "Layer 4: Service Layer"
-        L4A[STT Service<br/>Speech-to-Text]
-        L4B[TTS Service<br/>Text-to-Speech]
-        L4C[LangChain Service<br/>Agent reasoning]
-        L4D[Effects Service<br/>Audio effects]
+    subgraph Layer4["Layer 4: Service Layer"]
+        L4A["STT Service<br/>Speech-to-Text"]
+        L4B["TTS Service<br/>Text-to-Speech"]
+        L4C["LangChain Service<br/>Agent reasoning"]
+        L4D["Effects Service<br/>Audio effects"]
     end
 
-    subgraph "Layer 5: Infrastructure Layer"
-        L5A[PropertySearchService<br/>Business logic facade]
-        L5B[Superlinked Integration<br/>Schema & Query]
-        L5C[Qdrant Client<br/>Vector DB access]
-        L5D[External APIs<br/>Groq, OpenAI, Together.ai]
+    subgraph Layer5["Layer 5: Infrastructure Layer"]
+        L5A["PropertySearchService<br/>Business logic facade"]
+        L5B["Superlinked Integration<br/>Schema and Query"]
+        L5C["Qdrant Client<br/>Vector DB access"]
+        L5D["External APIs<br/>Groq, OpenAI, Together.ai"]
     end
 
-    subgraph "Layer 6: Data Layer"
-        L6A[Property Data<br/>CSV files]
-        L6B[Vector Embeddings<br/>In Qdrant]
-        L6C[Avatar Definitions<br/>YAML files]
+    subgraph Layer6["Layer 6: Data Layer"]
+        L6A["Property Data<br/>CSV files"]
+        L6B["Vector Embeddings<br/>In Qdrant"]
+        L6C["Avatar Definitions<br/>YAML files"]
     end
 
-    subgraph "Layer 7: Cross-Cutting Concerns"
-        L7A[Configuration<br/>Settings & env vars]
-        L7B[Observability<br/>Opik tracing]
-        L7C[Logging<br/>Python logging]
+    subgraph Layer7["Layer 7: Cross-Cutting Concerns"]
+        L7A["Configuration<br/>Settings and env vars"]
+        L7B["Observability<br/>Opik tracing"]
+        L7C["Logging<br/>Python logging"]
     end
 
     L1A --> L1B
